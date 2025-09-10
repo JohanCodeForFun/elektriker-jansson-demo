@@ -12,26 +12,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x, 20.x, 22.x]
         app: [client, server]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: npm
+          node-version: "22.x"
+          cache: "npm"
           cache-dependency-path: ${{ matrix.app }}/package-lock.json
 
       - name: Install dependencies
         working-directory: ${{ matrix.app }}
-        shell: bash
         run: |
           if [ -f package-lock.json ]; then
             npm ci
