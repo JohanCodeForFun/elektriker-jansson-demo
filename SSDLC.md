@@ -64,3 +64,42 @@ I’ll outline concrete SSDLC steps tailored to this repo so you can harden the 
 - “Like company” feature: make it POST, validate body, require CSRF or bot mitigation (captcha/turnstile), rate-limit per IP/user, and deduplicate likes
 - “Coupon code for every 10th like”: guard against replay/automation; generate single-use codes; server-side audit trail; avoid predictable sequences
 - SonarQube: wire into CI after tests; fail on quality gate
+
+## Five-week solo developer timeline
+
+Assumptions
+
+- ~20–40 hrs/week, OWASP ASVS L1 target, client on Netlify and server on Render.
+
+Week 1 — Foundations, threat model, hygiene
+
+- Deliver: SECURITY.md, CODEOWNERS (stub), PR/issue templates; .env + .env.example; remove hardcoded secrets; STRIDE threat model; enable Dependabot.
+- Hardening: add helmet, centralized error handler, structured logging (pino) with redaction.
+- Accept: No secrets in code, app runs via env vars, helmet headers present.
+
+Week 2 — CI/CD security gates and tests
+
+- Deliver: GitHub Actions workflow (install → lint → test → build) for client/server; Semgrep SAST; npm audit/OSV; optional SBOM step.
+- Tests: server security tests (headers, validation, error handling); CORS allowlist for prod.
+- Accept: CI blocks on failing tests; Semgrep runs; audits reported.
+
+Week 3 — "Like company" feature (secure by design)
+
+- API: POST /api/likes with schema validation, rate limiting, idempotency; basic bot mitigation; dedup likes.
+- FE: like button + toaster; optimistic UI + error handling.
+- Obs: correlation IDs, counters; /health and basic /metrics.
+- Accept: abuse tests pass (rate-limit triggers), invalid payloads rejected, logs redact PII.
+
+Week 4 — Coupon issuance and hardening
+
+- Coupon engine: single‑use unpredictable codes on every 10th valid like; audit trail; idempotent issuance.
+- Headers: Netlify CSP (report‑only → enforce), HSTS, Referrer‑Policy, X‑Content‑Type‑Options.
+- Prod: Render HTTPS, CORS allowlist, secure env vars.
+- Accept: tests for uniqueness/idempotency; CSP does not break app; no mixed content.
+
+Week 5 — Deploy, DAST, docs, handover
+
+- Deploy: Netlify + Render with envs/allowlists.
+- DAST: OWASP ZAP baseline on preview; triage and fix highs.
+- Runbook: incident and key rotation; update README/SSDLC with scan steps.
+- Accept: live URLs, CI green, DAST shows no high findings; docs complete.
