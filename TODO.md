@@ -5,6 +5,9 @@
   - semgrep
   - tests
   - sonarcube
+- block push to main
+- require workflow to pass before merge pullrequest
+- block pullrequest merge before code reviewed
 - add function to like company
 - add toaster/notice: thank user for liking company
 - add coupon code for every 10th like
