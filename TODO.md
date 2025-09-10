@@ -1,0 +1,11 @@
+- host frontend on netlify
+- host backend on render
+- add github action workflow for:
+  - linting
+  - semgrep
+  - tests
+  - sonarcube
+- add function to like company
+- add toaster/notice: thank user for liking company
+- add coupon code for every 10th like
+-
