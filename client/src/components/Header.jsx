@@ -1,6 +1,8 @@
 import { NavLink } from "react-router";
+import { useAuth } from "../context/useAuth.js";
 
 function Header() {
+  const { user, logout } = useAuth();
   return ( 
     <header>
           <nav className="nav-mobile">
@@ -33,13 +35,19 @@ function Header() {
               }
                 to="/om-oss">Om oss</NavLink>
                 </li>
-              <li className="button">
-                <NavLink
-                  className={({ isActive }) =>
-                isActive ? "active" : ""
-                }
-               to="/hello/johan">Hej Johan</NavLink>
+
+              {user ? (
+                <li className="button">
+                  <button className="button" onClick={logout}>Logga ut ({user.name})</button>
                 </li>
+              ) : (
+                <li className="button">
+                  <NavLink
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                    to="/login"
+                  >Logga in</NavLink>
+                </li>
+              )}
 
               {/* <li className="button"><a href="tjanster.html">Tjänster</a></li> */}
               {/* <li className="button"><a href="kontakt.html">Kontakt</a></li>
