@@ -13,7 +13,21 @@
   top: 30%;
   left: 50%;
   z-index: 9000;
+
+  border: 1px solid var(--black);
+  box-shadow: 0.2em 0.2em var(--orange);
+
+  /* start slightly above and invisible */
+  transform: translate(-50%, -60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 240ms ease;
+}
+
+.modal.is-open {
   transform: translate(-50%, -50%);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 body {

@@ -7,9 +7,10 @@ function ModalPlaning({showModalPlaning, setShowModalPlaning}) {
 
   return ( 
     <article
-      className="modal"
-      style={{ display: showModalPlaning ? 'block' : 'none' }}
+      className={`modal ${showModalPlaning ? 'is-open' : ''}`}
       aria-hidden={!showModalPlaning}
+      role="dialog"
+      aria-modal="true"
     >
         <button className="button button--close" onClick={handleClick}>stäng</button>
           <h2>Börja här!</h2>
