@@ -15,7 +15,7 @@
   z-index: 9000;
 
   border: 1px solid var(--black);
-  box-shadow: 0.2em 0.2em var(--orange);
+  box-shadow: 0.5em 0.5em var(--orange);
 
   /* start slightly above and invisible */
   transform: translate(-50%, -60%);
@@ -26,6 +26,25 @@
 
 .modal.is-open {
   transform: translate(-50%, -50%);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Full-screen dimmed backdrop behind the modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+  z-index: 8500; /* below .modal (9000) */
+  /* Optional blur of page content (browser support varies) */
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.modal-backdrop.is-open {
   opacity: 1;
   pointer-events: auto;
 }
