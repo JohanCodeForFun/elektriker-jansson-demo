@@ -24,7 +24,9 @@ body {
 }
 
 .active {
-  background-color: blue;
+  background-color: var(--warm-yellow);
+  color: var(--white);
+  width: 100%;
 }
 
 .company-name {
@@ -345,6 +347,13 @@ footer {
     color: inherit;
   }
 
+  .nav-desktop > ul > li.button > a.active,
+  /* Progressive enhancement: style LI if its link is the current page */
+  .nav-desktop > ul > li.button:has(> a[aria-current="page"]) {
+    background-color: var(--warm-yellow);
+    color: var(--white);
+  }
+
   .hamburger {
     display: none;
   }
@@ -381,7 +390,7 @@ footer {
 .modal-modern__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
 }
 .modal-modern__dialog {
   position: relative;
@@ -389,7 +398,7 @@ footer {
   padding: 1.5rem;
   width: min(720px, 94%);
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transform: translateY(-6px);
   z-index: 1;
 }
@@ -398,4 +407,3 @@ footer {
   right: 0.6rem;
   top: 0.6rem;
 }
-
