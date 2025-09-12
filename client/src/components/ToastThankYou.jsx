@@ -7,13 +7,11 @@ import styles from "./ToastThankYou.module.css";
 function ToastThankYou({ trigger }) {
   const [showToast, setShowToast] = useState(false);
   const timeoutRef = useRef(null);
-  const didMountRef = useRef(false);
+  const lastTriggerRef = useRef(trigger);
 
   useEffect(() => {
-    if (!didMountRef.current) {
-      didMountRef.current = true; // skip initial render
-      return;
-    }
+    if (lastTriggerRef.current === trigger) return; // skip initial mount (and StrictMode re-run)
+    lastTriggerRef.current = trigger;
 
     console.log("trigger:", trigger)
 
