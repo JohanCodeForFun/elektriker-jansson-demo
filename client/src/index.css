@@ -24,6 +24,26 @@
   transition: opacity 220ms ease, transform 240ms ease;
 }
 
+.coupon {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9000;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0.3rem 0.5rem;
+
+  background-color: var(--white);
+  color: var(--black);
+  flex-direction: column;
+}
+.coupon > button {
+  align-self: flex-end;
+  margin: 0.3rem 0.5rem;
+}
+
 .modal.is-open {
   transform: translate(-50%, -50%);
   opacity: 1;
