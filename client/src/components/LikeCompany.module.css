@@ -1,0 +1,11 @@
+.container {
+  background-color: var(--brown);
+  color: var(--white);
+  border-radius: 8px;
+}
+
+.container > div {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
