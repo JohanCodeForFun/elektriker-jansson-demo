@@ -53,7 +53,7 @@ function LikeCompany() {
         like={likes}
         onClose={() => setShowModalPlaning(false)}
       />
-      <ToastThankYou />
+  <ToastThankYou trigger={likes} />
     </article>
   );
 }
