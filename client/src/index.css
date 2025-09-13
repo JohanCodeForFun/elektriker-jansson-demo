@@ -8,6 +8,23 @@
   --orange: #be6321; /* Accent color */
 }
 
+dialog {
+  border: 1px solid var(--black);
+  box-shadow: 0.5em 0.5em var(--orange);
+  background-color: var(--white);
+  color: var(--black);
+}
+dialog > p {
+  color: red;
+}
+#root > div > section > dialog > p {
+  color: blue;
+}
+#root > div > section > dialog > ul > li > a {
+  color: var(--white);
+  text-decoration: none;
+}
+
 .modal {
   position: absolute;
   top: 30%;
@@ -133,21 +150,6 @@ body {
   min-height: 100vh;
 }
 
-.hero {
-  text-align: left;
-  padding: 2rem;
-}
-
-.hero h1 {
-  font-size: 4rem;
-  color: var(--warm-yellow);
-}
-
-.hero p {
-  font-size: 2.5rem;
-  color: var(--white);
-}
-
 .button {
   padding: 0.8rem 1.3rem;
   text-decoration: none;
@@ -214,10 +216,6 @@ footer {
 .nav-desktop {
   display: none;
 }
-/* 
-@media screen and (min-width) {
-
-} */
 
 body {
   margin: 0;
@@ -257,12 +255,12 @@ body {
   padding: 2rem;
 }
 
-.hero h1 {
+.hero > h1 {
   font-size: 4rem;
   color: var(--warm-yellow);
 }
 
-.hero p {
+.hero > p {
   font-size: 2.5rem;
   color: var(--white);
 }

@@ -4,7 +4,6 @@ import Hero from '../components/Hero';
 import Articles from '../components/Articles';
 import Services from '../components/Services';
 import Cta from '../components/Cta';
-import ModalPlaning from '../components/ModalPlaning';
 import LikeCompany from '../components/LikeCompany';
 
 const port = 3000;
@@ -19,7 +18,6 @@ async function fetchData () {
 
 function Home() {
   const [data, setData] = useState(null);
-  const [showModalPlaning, setShowModalPlaning] = useState(false);
 
   const getData = async () => {
     try {
@@ -41,9 +39,7 @@ function Home() {
       {data ? <p>{data}</p> : <p>Loading...</p> }
       <div className="hero-wrapper">
 
-        <Hero
-        setShowModalPlaning={setShowModalPlaning}
-        />
+        <Hero />
       </div>
 
       <main>
@@ -54,11 +50,6 @@ function Home() {
         <Services />
         <Cta />
       </main>
-
-      <ModalPlaning
-        showModalPlaning={showModalPlaning}
-        setShowModalPlaning={setShowModalPlaning}
-      />
     </>
   );
 }
