@@ -8,15 +8,19 @@ function LikeCompany() {
   const [showCouponModal, setShowModalPlaning] = useState(false);
   const [timeoutBtn, setTimeoutBtn] = useState(false);
 
+  function timeout() {
+    setTimeoutBtn(true);
+
+    setTimeout(() => {
+      setTimeoutBtn(false);
+    }, 3000);
+  }
+
   function maybeCelebrate(nextLikes) {
     if (nextLikes % 10 === 0) {
-      setTimeoutBtn(true);
-
       setShowModalPlaning(true);
 
-      setTimeout(() => {
-        setTimeoutBtn(false);
-      }, 3000);
+      timeout();
     }
   }
 
@@ -26,6 +30,8 @@ function LikeCompany() {
       maybeCelebrate(next);
       return next;
     });
+
+    timeout();
   }
 
   return (
@@ -53,7 +59,7 @@ function LikeCompany() {
         like={likes}
         onClose={() => setShowModalPlaning(false)}
       />
-  <ToastThankYou trigger={likes} />
+      <ToastThankYou trigger={likes} />
     </article>
   );
 }
