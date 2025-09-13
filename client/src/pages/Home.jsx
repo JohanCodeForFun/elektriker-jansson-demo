@@ -10,6 +10,8 @@ const port = 3000;
 const url = "http://localhost:";
 const path = "/api/hello";
 
+const unusedVariable = 42;
+
 async function fetchData () {
   const response = await fetch(`${url}${port}${path}`);
   const data = await response.text();
