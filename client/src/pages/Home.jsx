@@ -1,16 +1,17 @@
 // ...existing code...
-import { useEffect, useState } from 'react';
-import Hero from '../components/Hero';
-import Articles from '../components/Articles';
-import Services from '../components/Services';
-import Cta from '../components/Cta';
-import ModalPlaning from '../components/ModalPlaning';
+import { useEffect, useState } from "react";
+import Hero from "../components/Hero";
+import Articles from "../components/Articles";
+import Services from "../components/Services";
+import Cta from "../components/Cta";
+import ModalPlaning from "../components/ModalPlaning";
+import Header from "../components/Header";
 
 const port = 3000;
 const url = "http://localhost:";
 const path = "/api/hello";
 
-async function fetchData () {
+async function fetchData() {
   const response = await fetch(`${url}${port}${path}`);
   const data = await response.text();
   return data;
@@ -32,17 +33,14 @@ function Home() {
 
   useEffect(() => {
     getData();
-    console.log("hej en gång!")
+    console.log("hej en gång!");
   }, []);
 
   return (
     <>
-      {data ? <p>{data}</p> : <p>Loading...</p> }
       <div className="hero-wrapper">
 
-        <Hero
-        setShowModalPlaning={setShowModalPlaning}
-        />
+        <Hero setShowModalPlaning={setShowModalPlaning} />
       </div>
 
       <main>

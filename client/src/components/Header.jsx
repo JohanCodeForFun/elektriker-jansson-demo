@@ -1,56 +1,101 @@
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
 import { useAuth } from "../context/useAuth.js";
 
 function Header() {
   const { user, logout } = useAuth();
-  return ( 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => setMenuOpen((o) => !o);
+  const closeMenu = () => setMenuOpen(false);
+  return (
     <header>
-          <nav className="nav-mobile">
-            <ul>
-              <li>Elektriker Jansson</li>
-              <li className="call">
-                <i className="fa-solid fa-phone-volume fa-lg"></i>
-                <strong> Ring +460 123 45 67</strong>
-              </li>
-              <li className="hamburger">
-                <a href="#"><i className="fa-solid fa-bars fa-lg"></i></a>
-              </li>
-            </ul>
-          </nav>
-
-          <nav className="nav-desktop">
-            <ul>
-              <li className="company-name">Elektriker Jansson</li>
-              
+      <nav className="nav-mobile">
+        <ul className="topbar">
+          <li>Elektriker Jansson</li>
+          <li className="call">
+            <i className="fa-solid fa-phone-volume fa-lg"></i>
+            <strong> Ring +460 123 45 67</strong>
+          </li>
+          <li className="hamburger">
+            <button
+              type="button"
+              className="hamburger-btn"
+              aria-label="Meny"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              onClick={toggleMenu}
+            >
+              ☰
+            </button>
+          </li>
+        </ul>
+        <div
+          id="mobile-menu"
+          className={`mobile-menu ${menuOpen ? "is-open" : ""}`}
+          role="menu"
+        >
+          <ul>
+            <li className="button">
+              <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")} onClick={closeMenu}>Hem</NavLink>
+            </li>
+            <li className="button">
+              <NavLink to="/om-oss" className={({ isActive }) => (isActive ? "active" : "")} onClick={closeMenu}>Om oss</NavLink>
+            </li>
+            {user ? (
               <li className="button">
-                <NavLink to="/" 
-                className={({ isActive }) =>
-                isActive ? "active" : ""
-                }>Hem</NavLink>
-                </li>
+                <button className="button" onClick={() => { logout(); closeMenu(); }}>
+                  Logga ut ({user.name})
+                </button>
+              </li>
+            ) : (
               <li className="button">
-                <NavLink
-                  className={({ isActive }) =>
-            isActive ? "active" : ""
-              }
-                to="/om-oss">Om oss</NavLink>
-                </li>
+                <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")} onClick={closeMenu}>Logga in</NavLink>
+              </li>
+            )}
+          </ul>
+        </div>
+      </nav>
 
-              {user ? (
-                <li className="button">
-                  <button className="button" onClick={logout}>Logga ut ({user.name})</button>
-                </li>
-              ) : (
-                <li className="button">
-                  <NavLink
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                    to="/login"
-                  >Logga in</NavLink>
-                </li>
-              )}
+      <nav className="nav-desktop">
+        <ul>
+          <li className="company-name">Elektriker Jansson</li>
 
-              {/* <li className="button"><a href="tjanster.html">Tjänster</a></li> */}
-              {/* <li className="button"><a href="kontakt.html">Kontakt</a></li>
+          <li className="button">
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Hem
+            </NavLink>
+          </li>
+          <li className="button">
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : "")}
+              to="/om-oss"
+            >
+              Om oss
+            </NavLink>
+          </li>
+
+          {user ? (
+            <li className="button">
+              <button className="button" onClick={logout}>
+                Logga ut ({user.name})
+              </button>
+            </li>
+          ) : (
+            <li className="button">
+              <NavLink
+                className={({ isActive }) => (isActive ? "active" : "")}
+                to="/login"
+              >
+                Logga in
+              </NavLink>
+            </li>
+          )}
+
+          {/* <li className="button"><a href="tjanster.html">Tjänster</a></li> */}
+          {/* <li className="button"><a href="kontakt.html">Kontakt</a></li>
               <li className="button">
                 <a href="mailto:info@elektrikerjansson.se">Maila oss!</a>
               </li>
@@ -58,10 +103,10 @@ function Header() {
                 <i className="fa-solid fa-phone-volume fa-lg"></i>
                 <strong> Ring +460 123 45 67</strong>
               </li> */}
-            </ul>
-          </nav>
-        </header>
-   );
+        </ul>
+      </nav>
+    </header>
+  );
 }
 
 export default Header;

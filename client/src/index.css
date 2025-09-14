@@ -88,6 +88,7 @@ body {
 .nav-mobile > ul {
   display: flex;
   color: var(--white);
+  background-color: var(--black);
   font-size: 1.3rem;
 
   margin: 0;
@@ -190,11 +191,40 @@ footer {
   display: none;
 }
 /* 
+.nav-mobile .hamburger-btn {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--white);
+  border-radius: 6px;
+  padding: 0.2rem 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* Mobile slide-down menu */
+.nav-mobile .mobile-menu {
+  background: var(--black);
+  overflow: hidden;
+  max-height: 0; /* fully collapsed */
+  padding: 0 1rem; /* no vertical padding when closed */
+  pointer-events: none; /* no interactions when closed */
+  transition: max-height 240ms ease, padding 200ms ease;
+}
+.nav-mobile .mobile-menu > ul {
+  margin: 0;
+  padding: 0.5rem 0 1rem; /* vertical padding comes from container when open */
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+.nav-mobile .mobile-menu.is-open {
+  max-height: 70vh; /* large enough to show all items */
+  padding: 0.5rem 1rem 1rem; /* restore vertical padding */
+  pointer-events: auto;
+}
+
 @media screen and (min-width) {
-
-} */
-
-body {
+}
+*/ body {
   margin: 0;
   box-sizing: border-box;
   font-family: "Playfair Display", serif;
@@ -357,6 +387,12 @@ footer {
     font-size: 1.5rem;
     padding: 1rem 2rem;
     margin: 0;
+
+    background-color: var(--black);
+  }
+
+  #root > header > nav.nav-desktop > ul > li.company-name {
+    color: var(--warm-yellow);
   }
 
   .nav-desktop > ul > li:first-child {
