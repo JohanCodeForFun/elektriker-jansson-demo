@@ -5,6 +5,7 @@ import Articles from '../components/Articles';
 import Services from '../components/Services';
 import Cta from '../components/Cta';
 import ModalPlaning from '../components/ModalPlaning';
+import LikeCompany from '../components/LikeCompany';
 
 const port = 3000;
 const url = "http://localhost:";
@@ -49,6 +50,7 @@ function Home() {
         <section className="hero-livingroom" />
 
         <Articles />
+        <LikeCompany />
         <Services />
         <Cta />
       </main>
