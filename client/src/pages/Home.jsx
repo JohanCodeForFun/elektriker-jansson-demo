@@ -34,12 +34,12 @@ function Home() {
 
   useEffect(() => {
     getData();
-    console.log("hej en gång!")
+    console.log("hej en gång!", unusedVariable)
   }, []);
 
   return (
     <>
-      {data ? <p>{data}</p> : <p>Loading...</p> }
+      {data ? <p>{data}</p> : <p>Loading... {unusedVariable}</p> }
       <div className="hero-wrapper">
 
         <Hero
@@ -49,8 +49,6 @@ function Home() {
 
       <main>
         <section className="hero-livingroom" />
-
-        {/* { unusedVariable } */}
 
         <Articles />
         <Services />
