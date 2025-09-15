@@ -50,6 +50,8 @@ function Home() {
       <main>
         <section className="hero-livingroom" />
 
+        {/* { unusedVariable } */}
+
         <Articles />
         <Services />
         <Cta />
