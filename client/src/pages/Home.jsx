@@ -11,6 +11,8 @@ const port = 3000;
 const url = "http://localhost:";
 const path = "/api/hello";
 
+const unusedVariable = 42;
+
 async function fetchData () {
   const response = await fetch(`${url}${port}${path}`);
   const data = await response.text();
@@ -33,12 +35,12 @@ function Home() {
 
   useEffect(() => {
     getData();
-    console.log("hej en gång!")
+    console.log("hej en gång!", unusedVariable)
   }, []);
 
   return (
     <>
-      {data ? <p>{data}</p> : <p>Loading...</p> }
+      {data ? <p>{data}</p> : <p>Loading... {unusedVariable}</p> }
       <div className="hero-wrapper">
 
         <Hero
