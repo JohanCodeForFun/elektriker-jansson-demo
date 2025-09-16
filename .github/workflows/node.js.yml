@@ -37,6 +37,10 @@ jobs:
             npm install
           fi
 
+      - name: Security audit (npm audit)
+        working-directory: ${{ matrix.app }}
+        run: npm audit --audit-level=high --omit=dev
+
       - name: Lint (client)
         if: matrix.app == 'client'
         working-directory: ${{ matrix.app }}
