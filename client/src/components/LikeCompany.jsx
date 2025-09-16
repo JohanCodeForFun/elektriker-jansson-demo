@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { processLike } from "../utils/likeLogic";
 import styles from "./LikeCompany.module.css";
 import CouponModal from "./couponModal";
 import ToastThankYou from "./ToastThankYou";
@@ -8,30 +9,20 @@ function LikeCompany() {
   const [showCouponModal, setShowModalPlaning] = useState(false);
   const [timeoutBtn, setTimeoutBtn] = useState(false);
 
-  function timeout() {
-    setTimeoutBtn(true);
-
-    setTimeout(() => {
-      setTimeoutBtn(false);
-    }, 3000);
-  }
-
-  function maybeCelebrate(nextLikes) {
-    if (nextLikes % 10 === 0) {
-      setShowModalPlaning(true);
-
-      timeout();
-    }
-  }
-
   function handleLike() {
-    setLikes((prev) => {
-      const next = prev + 1;
-      maybeCelebrate(next);
-      return next;
-    });
+    setLikes(prev => {
+      const { nextLikes, celebrates, cooldownMs } = processLike(prev);
 
-    timeout();
+      if (celebrates) {
+        setShowModalPlaning(true);
+      }
+
+      // Start cooldown
+      setTimeoutBtn(true);
+      setTimeout(() => setTimeoutBtn(false), cooldownMs);
+
+      return nextLikes;
+    });
   }
 
   return (
