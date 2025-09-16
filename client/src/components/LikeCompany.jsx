@@ -43,10 +43,11 @@ function LikeCompany() {
           före utlovad tid!" -- Johanna
         </em>
       </p>
-      <p>Det är {likes} Kunder som gillar vårt företag!</p>
+  <p data-testid="likes-count">Det är {likes} Kunder som gillar vårt företag!</p>
       <div>
         <p>Gilla vårt företag!</p>
         <button
+          data-testid="like-button"
           disabled={timeoutBtn}
           className="button button--cta"
           onClick={handleLike}
