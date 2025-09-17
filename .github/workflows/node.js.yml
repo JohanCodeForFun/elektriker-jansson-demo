@@ -42,6 +42,10 @@ jobs:
         working-directory: ${{ matrix.app }}
         run: npm run lint --if-present
 
+      - name: Security audit (npm audit)
+        working-directory: ${{ matrix.app }}
+        run: npm audit --audit-level=high
+
       - name: Build (client)
         if: matrix.app == 'client'
         working-directory: ${{ matrix.app }}
