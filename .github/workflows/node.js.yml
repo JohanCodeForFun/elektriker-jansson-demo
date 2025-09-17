@@ -44,7 +44,7 @@ jobs:
 
       - name: Security audit (npm audit)
         working-directory: ${{ matrix.app }}
-        run: npm audit --audit-level=high --omit=dev
+        run: npm audit --audit-level=high
 
       - name: Build (client)
         if: matrix.app == 'client'
