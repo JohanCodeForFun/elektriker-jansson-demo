@@ -1,6 +1,5 @@
 function Hero({ setShowModalPlaning }) {
 
-  const hello = "hello";
   
     function handleClick () {
     setShowModalPlaning(prev => !prev)
