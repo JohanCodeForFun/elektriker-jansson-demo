@@ -21,6 +21,10 @@ let counterHello = 0;
 
 const apiKey = "sk_test_51HcR..."; // 🚨 Secret in code
 
+app.get("/healthz", (_req, res) => {
+  res.status(200).json({ ok: true });
+});
+
 app.get("/api/hello", (req, res) => {
   let msg = "Hello World!";
   // counterHello = counterHello + 1;
