@@ -21,6 +21,20 @@ let counterHello = 0;
 
 const apiKey = "sk_test_51HcR..."; // 🚨 Secret in code
 
+function logger(req, res, next) {
+  const start = Date.now();
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    // använd originalUrl för att få hela path (inkl ev. query)
+    console.log(
+      `${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms`
+    );
+  });
+  next();
+}
+
+app.use(logger);
+
 app.get("/healthz", (_req, res) => {
   res.status(200).json({ ok: true });
 });
