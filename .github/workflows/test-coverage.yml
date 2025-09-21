@@ -1,0 +1,64 @@
+name: Test & Coverage
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [client, server]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+          cache-dependency-path: ${{ matrix.app }}/package-lock.json
+
+      - name: Install deps
+        working-directory: ${{ matrix.app }}
+        run: npm ci
+
+      - name: Run coverage
+        working-directory: ${{ matrix.app }}
+        run: |
+          if [ -f package.json ]; then
+            if npm run | grep -q 'test:coverage'; then
+              npm run test:coverage
+            else
+              npm test
+            fi
+          fi
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.app }}
+          path: ${{ matrix.app }}/coverage
+          if-no-files-found: ignore
+
+  combine-report:
+    needs: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download coverage artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: coverage-*
+          path: coverage-artifacts
+
+      - name: List downloaded
+        run: ls -R coverage-artifacts || true
