@@ -11,6 +11,12 @@ const port = 3000;
 const url = "http://localhost:";
 const path = "/api/hello";
 
+// http://localhost:3000/api/hello
+
+const apiKey = "sk_test_51HcR..."; // 🚨 Secret in code
+
+console.log(apiKey)
+
 const unusedVariable = 42;
 
 async function fetchData () {

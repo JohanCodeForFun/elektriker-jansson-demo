@@ -10,7 +10,7 @@ describe("GET /api/hello", () => {
   });
 
   it("responds with Hello World!", async () => {
-    const expectedMsg = "Hello World!";
+    const expectedMsg = "request to: /api/hello";
 
     const res = await request(app).get("/api/hello");
 
