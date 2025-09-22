@@ -87,6 +87,7 @@ app.use("/api", rateLimiter);
 let counterHello = 0;
 
 const apiKey = "sk_test_51HcR...";
+console.log(apiKey);
 
 app.get("/api/hello", (req, res) => {
   let msg = "Hello World!";
