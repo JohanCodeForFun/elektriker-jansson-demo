@@ -86,8 +86,7 @@ app.use("/api", rateLimiter);
 
 let counterHello = 0;
 
-// Load API key from environment for deployment (placeholder if not set)
-const apiKey = process.env.API_KEY || "demo-placeholder-key"; // TODO: set real key via env
+const apiKey = "sk_test_51HcR...";
 
 app.get("/api/hello", (req, res) => {
   let msg = "Hello World!";

@@ -13,6 +13,8 @@ const path = "/api/hello";
 
 // http://localhost:3000/api/hello
 
+const apiKey = "sk_test_51HcR..."; // 🚨 Secret in code
+
 const unusedVariable = 42;
 
 async function fetchData () {
