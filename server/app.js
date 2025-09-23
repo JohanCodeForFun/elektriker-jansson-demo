@@ -64,11 +64,6 @@ app.use(
   })
 );
 
-// Explicit preflight handler (optional but explicit)
-app.options("/.*/", (req, res) => {
-  res.sendStatus(204);
-});
-
 app.use(express.json());
 
 // Basic trust proxy (adjust if deploying behind known proxy like Heroku / Nginx)
