@@ -65,7 +65,7 @@ app.use(
 );
 
 // Explicit preflight handler (optional but explicit)
-app.options("*(.*)", (req, res) => {
+app.options("/.*/", (req, res) => {
   res.sendStatus(204);
 });
 
