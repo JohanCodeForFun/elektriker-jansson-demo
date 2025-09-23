@@ -11,29 +11,29 @@ permissions:
   contents: read
   pull-requests: read
   security-events: write
+
 jobs:
   semgrep:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      # Optional Semgrep App token (configure in repo/org secrets as SEMGREP_APP_TOKEN)
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-      SEMGREP_RULES: auto
-      SEMGREP_TIMEOUT: 600
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Run Semgrep
-        uses: returntocorp/semgrep-action@v1
+      - name: Run Semgrep (CE)
+        uses: docker://semgrep/semgrep:latest
         with:
-          config: ${{ env.SEMGREP_RULES }}
+          args: >
+            scan --config auto
+            --exclude node_modules --exclude build --exclude .next
+            --sarif -o semgrep.sarif .
       - name: Upload SARIF to code scanning
         if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: semgrep.sarif
+
       - name: Upload Semgrep SARIF artifact
         if: always()
         uses: actions/upload-artifact@v4
