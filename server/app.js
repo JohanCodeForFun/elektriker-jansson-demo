@@ -32,7 +32,10 @@ if (process.env.ZAP_PROXY_ORIGIN) {
   defaultOrigins.push(process.env.ZAP_PROXY_ORIGIN);
 }
 
-const allowedOrigins = Array.from(new Set(defaultOrigins));
+const allowedOrigins =
+  process.env.FRONTEND_ORIGIN || process.env.ZAP_PROXY_ORIGIN
+    ? Array.from(new Set(defaultOrigins))
+    : defaultOrigins;
 
 app.use(
   cors({
@@ -40,7 +43,7 @@ app.use(
       // Allow non-browser or same-origin requests (like curl / tests with no origin header)
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error(`CORS blocked origin: ${origin}`));
+      return callback(new Error('CORS policy violation'));
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
@@ -81,8 +84,6 @@ const RATE_LIMIT_MAX = parseInt(process.env.RATE_LIMIT_MAX, 10) || 60; // 60 req
 const rateBuckets = new Map();
 
 function rateLimiter(req, res, next) {
-  // Skip preflight requests
-  if (req.method === "OPTIONS") return next();
   const now = Date.now();
   const ip = req.ip || req.connection.remoteAddress || "unknown";
 
