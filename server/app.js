@@ -43,7 +43,7 @@ app.use(
       // Allow non-browser or same-origin requests (like curl / tests with no origin header)
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error('CORS policy violation'));
+      return callback(new Error("CORS policy violation"));
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
@@ -65,7 +65,7 @@ app.use(
 );
 
 // Explicit preflight handler (optional but explicit)
-app.options("*", (req, res) => {
+app.options("*(.*)", (req, res) => {
   res.sendStatus(204);
 });
 
