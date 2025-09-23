@@ -15,7 +15,57 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 
-app.use(cors());
+// ----- CORS Configuration -----
+const defaultOrigins = [
+  "http://localhost:5173",
+  "https://localhost:5173",
+  "http://127.0.0.1:5173",
+  "https://127.0.0.1:5173",
+];
+// Allow adding more origins via env (comma separated)
+// FRONTEND_ORIGIN="https://demo.example.com" (single extra origin)
+if (process.env.FRONTEND_ORIGIN) {
+  defaultOrigins.push(process.env.FRONTEND_ORIGIN);
+}
+// ZAP_PROXY_ORIGIN used for security scanning proxy origin allowance
+if (process.env.ZAP_PROXY_ORIGIN) {
+  defaultOrigins.push(process.env.ZAP_PROXY_ORIGIN);
+}
+
+const allowedOrigins = Array.from(new Set(defaultOrigins));
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      // Allow non-browser or same-origin requests (like curl / tests with no origin header)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error(`CORS blocked origin: ${origin}`));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Accept",
+      "X-Requested-With",
+      "Origin",
+    ],
+    exposedHeaders: [
+      "X-RateLimit-Limit",
+      "X-RateLimit-Remaining",
+      "X-RateLimit-Reset",
+      "Retry-After",
+    ],
+    maxAge: 600, // cache preflight 10 min
+  })
+);
+
+// Explicit preflight handler (optional but explicit)
+app.options("*", (req, res) => {
+  res.sendStatus(204);
+});
+
 app.use(express.json());
 
 // Basic trust proxy (adjust if deploying behind known proxy like Heroku / Nginx)
@@ -31,6 +81,8 @@ const RATE_LIMIT_MAX = parseInt(process.env.RATE_LIMIT_MAX, 10) || 60; // 60 req
 const rateBuckets = new Map();
 
 function rateLimiter(req, res, next) {
+  // Skip preflight requests
+  if (req.method === "OPTIONS") return next();
   const now = Date.now();
   const ip = req.ip || req.connection.remoteAddress || "unknown";
 
