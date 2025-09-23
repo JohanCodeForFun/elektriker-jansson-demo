@@ -16,18 +16,24 @@ jobs:
   semgrep:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Run Semgrep (CE)
-        uses: docker://semgrep/semgrep:latest
-        with:
-          args: >
-            scan --config auto
-            --exclude node_modules --exclude build --exclude .next
+
+      - name: Install Semgrep
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --no-cache-dir semgrep
+
+      - name: Run Semgrep (generate SARIF)
+        run: |
+          semgrep scan --config auto \
+            --exclude node_modules --exclude build --exclude .next --exclude coverage \
             --sarif -o semgrep.sarif .
+
       - name: Upload SARIF to code scanning
         if: always()
         uses: github/codeql-action/upload-sarif@v3
