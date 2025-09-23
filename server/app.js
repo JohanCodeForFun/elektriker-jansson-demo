@@ -15,7 +15,55 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 
-app.use(cors());
+// ----- CORS Configuration -----
+const defaultOrigins = [
+  "http://localhost:5173",
+  "https://localhost:5173",
+  "http://127.0.0.1:5173",
+  "https://127.0.0.1:5173",
+];
+// Allow adding more origins via env (comma separated)
+// FRONTEND_ORIGIN="https://demo.example.com" (single extra origin)
+if (process.env.FRONTEND_ORIGIN) {
+  defaultOrigins.push(process.env.FRONTEND_ORIGIN);
+}
+// ZAP_PROXY_ORIGIN used for security scanning proxy origin allowance
+if (process.env.ZAP_PROXY_ORIGIN) {
+  defaultOrigins.push(process.env.ZAP_PROXY_ORIGIN);
+}
+
+const allowedOrigins =
+  process.env.FRONTEND_ORIGIN || process.env.ZAP_PROXY_ORIGIN
+    ? Array.from(new Set(defaultOrigins))
+    : defaultOrigins;
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      // Allow non-browser or same-origin requests (like curl / tests with no origin header)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("CORS policy violation"));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Accept",
+      "X-Requested-With",
+      "Origin",
+    ],
+    exposedHeaders: [
+      "X-RateLimit-Limit",
+      "X-RateLimit-Remaining",
+      "X-RateLimit-Reset",
+      "Retry-After",
+    ],
+    maxAge: 600, // cache preflight 10 min
+  })
+);
+
 app.use(express.json());
 
 // Basic trust proxy (adjust if deploying behind known proxy like Heroku / Nginx)
