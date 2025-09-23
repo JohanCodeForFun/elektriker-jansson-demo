@@ -62,7 +62,7 @@ app.use(
 );
 
 // Explicit preflight handler (optional but explicit)
-app.options("*", (req, res) => {
+app.options("*splat", (req, res) => {
   res.sendStatus(204);
 });
 
