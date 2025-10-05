@@ -1,5 +1,5 @@
 // ...existing code...
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Hero from "../components/Hero";
 import Articles from "../components/Articles";
 import Services from "../components/Services";
@@ -11,8 +11,6 @@ const apiKey = "sk_test_51HcR..."; // 🚨 Secret in code
 
 console.log(apiKey);
 
-const unusedVariable = 42;
-
 function Home() {
   const [showModalPlaning, setShowModalPlaning] = useState(false);
 
@@ -22,7 +20,7 @@ function Home() {
         <Hero setShowModalPlaning={setShowModalPlaning} />
       </div>
 
-      <div className="hero-end-sentinel" aria-hidden="true"></div>
+      <div id="hero-end-sentinel" aria-hidden="true"></div>
 
       <main>
         <section className="hero-livingroom" />

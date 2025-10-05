@@ -8,6 +8,29 @@
   --orange: #be6321; /* Accent color */
 }
 
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  background: transparent;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease,
+    backdrop-filter 0.5s ease, border-color 0.5s ease;
+}
+
+.hero-end-sentinel {
+  height: 1px;
+  width: 100%;
+}
+
+.is-solid {
+  background-color: var(--brown);
+  border-bottom: 3px solid var(--orange);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+}
+
 .modal {
   position: absolute;
   top: 30%;
@@ -79,7 +102,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-family: "Playfair Display", serif;
-  background-color: greenyellow;
+  background-color: var(--black);
 }
 
 .active {
@@ -306,7 +329,9 @@ body {
 }
 
 main {
+  padding-top: 70px;
   background-color: var(--cream-white);
+  min-height: 83vh;
 }
 
 article {
