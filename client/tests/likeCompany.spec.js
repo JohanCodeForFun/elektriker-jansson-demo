@@ -31,7 +31,7 @@ test("like button increments and throttles rapid clicks", async ({ page }) => {
   expect(after).toBe(initial + 1);
 
   // Try immediate second click – should have no effect because disabled
-  await likeButton.click({ trial: true }).catch(() => {}); // trial click won't fire if disabled
+  await expect(likeButton).toBeDisabled(); // Explicitly assert button is disabled
 
   const midText = (await likeCountEl.textContent()) || "";
   const midMatch = midText.match(/\d+/);
