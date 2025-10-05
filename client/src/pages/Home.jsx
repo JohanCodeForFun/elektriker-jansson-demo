@@ -6,6 +6,7 @@ import Services from "../components/Services";
 import Cta from "../components/Cta";
 import ModalPlaning from "../components/ModalPlaning";
 import LikeCompany from "../components/LikeCompany";
+import Collaboration from "../components/Collaboration";
 
 const apiKey = "sk_test_51HcR..."; // 🚨 Secret in code
 
@@ -26,6 +27,7 @@ function Home() {
         <section className="hero-livingroom" />
 
         <Articles />
+        <Collaboration />
         <LikeCompany />
         <Services />
         <Cta />

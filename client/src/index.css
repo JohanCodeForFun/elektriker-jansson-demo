@@ -364,6 +364,11 @@ i {
   margin-bottom: 2rem;
 }
 
+.collaboration {
+  color: var(--white);
+  background-color: var(--orange);
+}
+
 .cta--list {
   padding: 0 1rem;
 }
