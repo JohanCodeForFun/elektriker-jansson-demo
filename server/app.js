@@ -89,6 +89,28 @@ let counterHello = 0;
 const apiKey = "sk_test_51HcR...";
 console.log(apiKey);
 
+function logger(req, res, next) {
+  const start = Date.now();
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    // use originalUrl to get the full path (including any query)
+    console.log(
+      `${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms`
+    );
+  });
+  next();
+}
+
+app.use(logger);
+
+app.get("/healthz", (_req, res) => {
+  res.status(200).json({ ok: true });
+});
+
+app.get("/time", (_req, res) => {
+  res.status(200).json({ time: new Date() });
+});
+
 app.get("/api/hello", (req, res) => {
   // counterHello = counterHello + 1;
   counterHello++;

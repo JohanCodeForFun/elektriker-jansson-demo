@@ -4,6 +4,7 @@
   "main": "app.js",
   "scripts": {
     "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "dev": "nodemon app.js"
   },
   "keywords": [],
