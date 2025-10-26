@@ -11,8 +11,8 @@
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:ui": "playwright test --ui",
     "test:coverage": "vitest run --coverage",
-    "preview": "vite preview --strictPort --port 4173",
-    "preview:build": "npm run build && npm run preview",
+    "test:e2e:preview": "PREVIEW=1 playwright test",
+    "preview": "vite preview --strictPort --port 5174",
     "lint": "eslint ."
   },
   "dependencies": {

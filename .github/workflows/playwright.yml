@@ -43,6 +43,8 @@ jobs:
 
       # Playwright will auto-start Vite via webServer in client/playwright.config.js
       - name: Run Playwright tests
+        env:
+          PREVIEW: 1
         run: npx playwright test
 
       - name: Upload report (only on failure)
