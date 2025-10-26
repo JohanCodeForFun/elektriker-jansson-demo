@@ -4,7 +4,7 @@ import { defineConfig, devices } from "@playwright/test";
 const usePreview = !!process.env.PREVIEW; // set PREVIEW=1 to use preview
 const WEB_SERVER_TIMEOUT = Number(process.env.WEB_SERVER_TIMEOUT ?? 300_000); // 5 min default
 
-const HOST = "http://localhost";
+const HOST = "http://127.0.0.1";
 const DEV_PORT = 5173;
 const PREVIEW_PORT = 5174;
 
@@ -84,7 +84,7 @@ export default defineConfig({
         ...WEB_SERVER_COMMON,
       }
     : {
-        command: "npm run dev -- --strictPort --port 5173",
+        command: "npm run dev",
         url: SERVER_URL,
         ...WEB_SERVER_COMMON,
       },
