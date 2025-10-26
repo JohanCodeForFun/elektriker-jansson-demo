@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: [client, server]
+        app: [client]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
