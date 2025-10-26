@@ -1,14 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from "@playwright/test";
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
 const usePreview = !!process.env.PREVIEW; // set PREVIEW=1 to use preview
 const WEB_SERVER_TIMEOUT = Number(process.env.WEB_SERVER_TIMEOUT ?? 120_000);
 
