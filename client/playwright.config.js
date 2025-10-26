@@ -10,6 +10,7 @@ import { defineConfig, devices } from "@playwright/test";
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const usePreview = !!process.env.PREVIEW; // set PREVIEW=1 to use preview
+const WEB_SERVER_TIMEOUT = Number(process.env.WEB_SERVER_TIMEOUT ?? 120_000);
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -76,12 +77,12 @@ export default defineConfig({
         command: "npm run preview",
         url: "http://localhost:5174",
         reuseExistingServer: !process.env.CI,
-        timeout: 120_000,
+        timeout: WEB_SERVER_TIMEOUT,
       }
     : {
         command: "npm run dev -- --strictPort --port 5173",
         url: "http://localhost:5173",
         reuseExistingServer: !process.env.CI,
-        timeout: 120_000,
+        timeout: WEB_SERVER_TIMEOUT,
       },
 });
