@@ -38,8 +38,8 @@ jobs:
       - name: Install deps
         run: npm ci --no-audit --no-fund --prefer-offline
 
-      - name: Install Playwright (Chromium only)
-        run: npx playwright install --with-deps chromium
+      - name: Install Playwright
+        run: npx playwright install --with-deps
 
       # Playwright will auto-start Vite via webServer in client/playwright.config.js
       - name: Run Playwright tests
