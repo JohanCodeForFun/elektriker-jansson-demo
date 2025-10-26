@@ -2,14 +2,20 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const usePreview = !!process.env.PREVIEW; // set PREVIEW=1 to use preview
-const WEB_SERVER_TIMEOUT = Number(process.env.WEB_SERVER_TIMEOUT ?? 120_000);
-const SERVER_URL = usePreview
-  ? "http://localhost:5174"
-  : "http://localhost:5173";
+const WEB_SERVER_TIMEOUT = Number(process.env.WEB_SERVER_TIMEOUT ?? 300_000); // 5 min default
+
+const HOST = "http://localhost";
+const DEV_PORT = 5173;
+const PREVIEW_PORT = 5174;
+
 const WEB_SERVER_COMMON = {
   reuseExistingServer: !process.env.CI,
   timeout: WEB_SERVER_TIMEOUT,
 };
+
+const SERVER_URL = usePreview
+  ? `${HOST}:${PREVIEW_PORT}`
+  : `${HOST}:${DEV_PORT}`;
 
 /**
  * @see https://playwright.dev/docs/test-configuration
