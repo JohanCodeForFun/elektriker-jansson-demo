@@ -25,7 +25,7 @@ function logger(req, res, next) {
   const start = Date.now();
   res.on("finish", () => {
     const duration = Date.now() - start;
-    // använd originalUrl för att få hela path (inkl ev. query)
+    // use originalUrl to get the full path (including any query)
     console.log(
       `${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms`
     );
