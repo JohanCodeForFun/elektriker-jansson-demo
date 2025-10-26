@@ -44,6 +44,7 @@ jobs:
       # Playwright will auto-start Vite via webServer in client/playwright.config.js
       - name: Run Playwright tests
         env:
+          # Use preview mode for production-like testing; it's more stable in CI than dev mode.
           PREVIEW: 1
         run: npx playwright test
 
