@@ -2,14 +2,14 @@
 import { test, expect } from "@playwright/test";
 
 test("has title", async ({ page }) => {
-  await page.goto("http://localhost:5173/");
+  await page.goto("/");
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Elektriker Jansson/);
 });
 
 test("get started link", async ({ page }) => {
-  await page.goto("http://localhost:5173/");
+  await page.goto("/");
 
   // Click the get started link.
   await page.getByRole("button", { name: "BÖRJA DIN PLANERING" }).click();

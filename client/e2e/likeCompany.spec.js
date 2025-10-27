@@ -5,7 +5,7 @@ import { test, expect } from "@playwright/test";
 test("LikeCompany increments like count and disables button briefly", async ({
   page,
 }) => {
-  await page.goto("http://localhost:5173/");
+  await page.goto("/");
 
   const likeButton = page.getByTestId("like-button");
   const likeCount = page.getByTestId("like-count");

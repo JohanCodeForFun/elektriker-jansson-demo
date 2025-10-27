@@ -1,0 +1,57 @@
+name: Playwright Tests
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - "client/**"
+      - ".github/workflows/playwright.yml"
+  push:
+    branches: [master]
+    paths:
+      - "client/**"
+      - ".github/workflows/playwright.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    defaults:
+      run:
+        working-directory: client
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node (cache npm)
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install deps
+        run: npm ci --no-audit --no-fund --prefer-offline
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      # Playwright will auto-start Vite via webServer in client/playwright.config.js
+      - name: Run Playwright tests
+        env:
+          # Use preview mode for production-like testing; it's more stable in CI than dev mode.
+          PREVIEW: 1
+        run: npx playwright test
+
+      - name: Upload report (only on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: client/playwright-report/
+          retention-days: 7
