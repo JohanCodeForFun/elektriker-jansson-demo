@@ -1,58 +1,26 @@
 // ...existing code...
-import { useEffect, useState } from 'react';
-import Hero from '../components/Hero';
-import Articles from '../components/Articles';
-import Services from '../components/Services';
-import Cta from '../components/Cta';
-import ModalPlaning from '../components/ModalPlaning';
-import LikeCompany from '../components/LikeCompany';
-
-const port = 3000;
-const url = "http://localhost:";
-const path = "/api/hello";
-
-// http://localhost:3000/api/hello
+import { useState } from "react";
+import Hero from "../components/Hero";
+import Articles from "../components/Articles";
+import Services from "../components/Services";
+import Cta from "../components/Cta";
+import ModalPlaning from "../components/ModalPlaning";
+import LikeCompany from "../components/LikeCompany";
 
 const apiKey = "sk_test_51HcR..."; // 🚨 Secret in code
 
-console.log(apiKey)
-
-const unusedVariable = 42;
-
-async function fetchData () {
-  const response = await fetch(`${url}${port}${path}`);
-  const data = await response.text();
-  return data;
-}
+console.log(apiKey);
 
 function Home() {
-  const [data, setData] = useState(null);
   const [showModalPlaning, setShowModalPlaning] = useState(false);
-
-  const getData = async () => {
-    try {
-      const result = await fetchData();
-      setData(result);
-    } catch (err) {
-      console.error("Error fetching data:", err);
-      setData("Failed to load data");
-    }
-  };
-
-  useEffect(() => {
-    getData();
-    console.log("hej en gång!", unusedVariable)
-  }, []);
 
   return (
     <>
-      {data ? <p>{data}</p> : <p>Loading... {unusedVariable}</p> }
       <div className="hero-wrapper">
-
-        <Hero
-        setShowModalPlaning={setShowModalPlaning}
-        />
+        <Hero setShowModalPlaning={setShowModalPlaning} />
       </div>
+
+      <div id="hero-end-sentinel" aria-hidden="true"></div>
 
       <main>
         <section className="hero-livingroom" />
